@@ -1,0 +1,123 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: cursive;
+}
+.wrapper{
+    padding: 1%;
+    width: 80%;
+    margin: 0 auto;
+}
+.text-center{
+    text-align: center;
+}
+
+/*--menu--*/
+.menu{
+    border-bottom: 1px solid grey;
+}
+.menu ul{
+    list-style-type: none;
+}
+.menu ul li{
+    display: inline;
+    padding: 1%;
+}
+.menu ul li a{
+    text-decoration: none;
+    font-weight: bold;
+    color: darkmagenta;
+}
+.menu ul li a:hover{
+    color:darkorchid
+}
+.clearfix{
+    float: none;
+    clear: both;
+}
+.tbl-full{
+    width: 100%;
+}
+.tbl-30{
+   width: 30%; 
+}
+table tr th{
+    border-bottom: 1px solid black;
+    padding: 1%;
+    text-align: left;
+}
+table tr td{
+    padding: 1%;
+}
+.btn-primary{
+    background-color: darkorchid;
+    padding: 1%;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.btn-primary:hover{
+    background-color: darkmagenta;
+}
+
+.btn-secondary{
+    background-color: darkgreen;
+    padding: 1%;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.btn-secondary:hover{
+    background-color: chartreuse;
+}
+
+.btn-danger{
+    background-color:darkred;
+    padding: 1%;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.btn-danger:hover{
+    background-color:crimson;
+}
+.success{
+    color:#2ed573;
+}
+.error{
+    color:#ff4757;
+}
+/*--main content--*/
+.main-content{
+    background-color:#c0c0c0;
+    padding: 3% 0;
+}
+.col-4{
+    width: 18%;
+    background-color: white;
+    margin: 1%;
+    padding: 2%;
+    float: left;
+}
+
+/*--footer--*/
+.footer{
+    background-color: darkorchid;
+    color:aliceblue;
+}
+
+/*---login--*/
+.login{
+    border: 5px solid darkorchid;
+    width: 30%;
+    margin:10% auto;
+    padding: 2%;
+
+}
+.loginn{
+    background-color:E0B0FF;
+}
+.text-color{
+    color:darkorchid;
+}
