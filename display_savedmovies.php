@@ -85,7 +85,11 @@ if($count>0) {
 
         <?php
     }
-}?>
+}
+else{ ?>
+    <div class="max-1200"><p class="login-signup">You have to <a href="https://liuthesis.000webhostapp.com/login.php">Login</a> or <a href="https://liuthesis.000webhostapp.com/signup.php">Sign up</a> to save movies in your watchlist</p></div>
+
+<?php }?>
 </div>
 <?php }
 else{ ?>

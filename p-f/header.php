@@ -124,7 +124,7 @@ $genres = array(
         <li><a href="<?=SITEURL?>login.php">Login</a></li>
             <li><a href="<?=SITEURL?>display_savedmovies.php">Watchlist</a></li>
             <li class="search-li">
-                <form action="search.php" method="POST">
+                <form action="http://localhost/recommender_system/search.php" method="POST">
                     <input type="text" name="search_field" id="search" placeholder="Search" />
                    <input class="submit_search" type="submit" value="" /></i>
                 </form>

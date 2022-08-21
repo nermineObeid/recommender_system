@@ -104,6 +104,19 @@
     include('p-f/header.php');?>
 </head>
 <body>
+
+<?php
+  $dest = "nermine.obeid.1999@gmail.com";
+  $subjetc = "Test Email";
+  $body = "Hi this is a test email send by a php script";
+  $headers = "From: YourGmailId@gmail.com";
+  if (mail($dest, $subjetc, $body, $headers)) {
+    echo "Email successfully sent to $dest ...";
+  } else {
+    echo "Failed to send email...";
+  }
+
+?>
 <div class="video-section">
 <video autoplay muted loop id="myVideo">
     <source src="http://localhost/recommender_system/images/home_hero_background.mp4" type="video/mp4">

@@ -24,8 +24,8 @@ else{
 }
 //recommended
 if($recommended=='true'){
-    $query = "INSERT INTO `newratinguser` (userId,movieId,rating)
-	VALUES ($current_user,$movieid,$ratingNum)";
+    $query = "INSERT INTO `newratinguser` (userId,movieId,rating,currentdate)
+	VALUES ($current_user,$movieid,$ratingNum,now())";
     if (mysqli_query($con, $query)) {
         echo json_encode(array("statusCode" => 200));
 
@@ -110,8 +110,8 @@ if($recommended=='true'){
 }else {
 
 
-    $query = "INSERT INTO `newratinguser` (userId,movieId,rating)
-	VALUES ($current_user,$movieid,$ratingNum)";
+    $query = "INSERT INTO `newratinguser` (userId,movieId,rating,currentdate)
+	VALUES ($current_user,$movieid,$ratingNum,now())";
     if (mysqli_query($con, $query)) {
         echo json_encode(array("statusCode" => 200));
 
