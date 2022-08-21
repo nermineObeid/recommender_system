@@ -244,10 +244,9 @@ FROM accuracy";
         function drawChart() {
 // Set Data
             var current_date = new Date().toJSON().slice(0,10);
-            var nermine = 100;
             var data = google.visualization.arrayToDataTable([
                 ['Date', 'Traffic'],
-                [50,7],[60,8],[70,8],[80,9],[current_date,9]
+                [current_date,7],[current_date,8],[current_date,8],[current_date,9],[current_date,9]
             ]);
 // Set Options
             var options = {
@@ -262,6 +261,11 @@ FROM accuracy";
         }
     </script>
     <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
+    <?php
+    $q = "SELECT * FROM newratinguser WHERE currentdate = now()";
+    $result_select = mysqli_query($con, $query_select);
+    $row_select = mysqli_fetch_assoc($result_select);
+    ?>
     <!--    chart-->
 </div>
 
