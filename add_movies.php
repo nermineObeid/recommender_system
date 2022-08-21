@@ -1,6 +1,6 @@
 <?php
 require_once 'connection.php';
-
+$current_date = date("Y-m-d");
 if (isset($_POST['submit'])) {
     $title = $_POST['adtitle'];
     $genres = $_POST['adgenres'];
@@ -232,8 +232,37 @@ FROM accuracy";
         ?>
         <h3>Algorithm Accuracy = <?=round($accuracy).'%'?></h3>
     </div>
-<!--    nermine-->
 
+<!--    nermine-->
+    <!--    chart-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        google.charts.load('current',{packages:['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+// Set Data
+            var current_date = new Date().toJSON().slice(0,10);
+            var nermine = 100;
+            var data = google.visualization.arrayToDataTable([
+                ['Date', 'Traffic'],
+                [50,7],[60,8],[70,8],[80,9],[current_date,9]
+            ]);
+// Set Options
+            var options = {
+                title: 'Traffic vs. Date',
+                hAxis: {title: 'Date'},
+                vAxis: {title: 'Traffic'},
+                legend: 'none'
+            };
+// Draw
+            var chart = new google.visualization.LineChart(document.getElementById('myChart'));
+            chart.draw(data, options);
+        }
+    </script>
+    <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
+    <!--    chart-->
 </div>
 
 <!-- Jquery JS-->
