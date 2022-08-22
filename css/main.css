@@ -1469,14 +1469,14 @@ input, button{
 .signup-page .card-body{
   padding: 40px !important;
 }
-#algorithm_accuracy, #user_accuracy, #add_movie{
-  width: 486px !important;
+#algorithm_accuracy, #user_accuracy, #add_movie, #traffic{
+  width: 648px !important;
   min-height: 328px !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 .tab{
-  width: 486px !important;
+  width: 648px !important;
   border: 0 !important;
 }
 .tablinks{

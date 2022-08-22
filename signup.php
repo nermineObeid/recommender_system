@@ -6,7 +6,7 @@ require_once 'connection.php';
       $email = $_POST['ademail'];
       $password = $_POST['adpassword'];
       $phone = $_POST['adphone'];
-
+      $password = password_hash($password, PASSWORD_DEFAULT);
       $query = "INSERT INTO users (role_id,name,email,password,phone_number) VALUES(2,'$name','$email','$password','$phone')";
       if ( mysqli_query($con, $query)) {
           $q = 'SELECT * from users ORDER BY id DESC LIMIT 1';

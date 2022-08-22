@@ -1,6 +1,54 @@
 <?php
 require_once 'connection.php';
+
 $current_date = date("Y-m-d");
+$yesterday = date('Y-m-d', strtotime(' -1 day'));
+$yesterday_1 = date('Y-m-d', strtotime(' -2 day'));
+$yesterday_2 = date('Y-m-d', strtotime(' -3 day'));
+$yesterday_3 = date('Y-m-d', strtotime(' -4 day'));
+
+$q = "SELECT * FROM newratinguser";
+$res = mysqli_query($con, $q);
+$r = mysqli_fetch_assoc($res);
+$counter = 0;
+$counter_1 = 0;
+$counter_2 = 0;
+$counter_3 = 0;
+$counter_4 = 0;
+
+$traffic = array(
+    "today" => '',
+    "yesterday" => '',
+    "yesterday_1" => '',
+    "yesterday_2" => '',
+    "yesterday_3" => ''
+);
+
+while ($r = mysqli_fetch_assoc($res)) {
+    if (stristr($r['currentdate'], $current_date)) {
+        $counter += 1;
+    } else if (stristr($r['currentdate'], $yesterday)) {
+        $counter_1 += 1;
+//        echo var_dump('hi');
+
+    } else if (stristr($r['currentdate'], $yesterday_1)) {
+        $counter_2 += 1;
+    } else if (stristr($r['currentdate'], $yesterday_2)) {
+        $counter_3 += 1;
+    } else if (stristr($r['currentdate'], $yesterday_3)) {
+        $counter_4 += 1;
+    }
+//    echo var_dump($r['currentdate']);
+
+}
+
+$traffic['today'] = $counter;
+$traffic['yesterday'] = $counter_1;
+$traffic['yesterday_1'] = $counter_2;
+$traffic['yesterday_2'] = $counter_3;
+$traffic['yesterday_3'] = $counter_4;
+$traffic_json = json_encode($traffic);
+setcookie("traffic", $traffic_json, time() + 2 * 24 * 60 * 60);
 if (isset($_POST['submit'])) {
     $title = $_POST['adtitle'];
     $genres = $_POST['adgenres'];
@@ -63,6 +111,36 @@ if (isset($_POST['submit'])) {
     <script src="http://localhost/recommender_system/js/index.js"></script>
     <link rel="stylesheet" type="text/css" href="http://localhost/recommender_system/css/main_1.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/recommender_system/css/main.css">
+
+    <script type="text/javascript">
+        function createCookie(name, value, days) {
+            var expires;
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            }
+            else {
+                expires = "";
+            }
+            document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+        }
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+    </script>
 
     <style type="text/css">
         /* Style the tab */
@@ -132,7 +210,8 @@ if (isset($_POST['submit'])) {
     <div class="tab">
         <button class="tablinks active bord-right" onclick="openCity(event, 'add_movie')">Add Movie</button>
         <button class="tablinks bord-right" onclick="openCity(event, 'user_accuracy')">User Accuracy</button>
-        <button class="tablinks" onclick="openCity(event, 'algorithm_accuracy')">Algorithm Accuracy</button>
+        <button class="tablinks bord-right" onclick="openCity(event, 'algorithm_accuracy')">Algorithm Accuracy</button>
+        <button class="tablinks" onclick="openCity(event, 'traffic')">Website Traffic</button>
     </div>
 
     <!-- Tab content -->
@@ -173,6 +252,8 @@ if (isset($_POST['submit'])) {
                             <button class="login100-form-btn" name="submit" type="submit">Add</button>
                         </div>
                     </form>
+                    <p class="p-t-15"><b style="color: rgba(160, 5, 5,1);">WARNING: </b>It takes at least  30 minutes to <a href="http://localhost/recommender_system/dataminnungone.php" style="color: black;text-decoration: underline"><b>Rerun</b></a> the Algorithm</p>
+
                 </div>
             </div>
         </div>
@@ -232,41 +313,48 @@ FROM accuracy";
         ?>
         <h3>Algorithm Accuracy = <?=round($accuracy).'%'?></h3>
     </div>
+    <div id="traffic" class="tabcontent" style="display: none;">
+        <!--    chart-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script>
+            google.charts.load('current',{packages:['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            var trafficjson = jQuery.parseJSON(getCookie('traffic'));
+            function drawChart() {
+// Set Data
+                var current_date = new Date().toJSON().slice(0,10);
+                var yesterday = new Date((new Date()).valueOf() - 1000*60*60*24).toJSON().slice(0,10);
+                var yesterday_1 = new Date((new Date()).valueOf() - 2*1000*60*60*24).toJSON().slice(0,10);
+                var yesterday_2 = new Date((new Date()).valueOf() - 3*1000*60*60*24).toJSON().slice(0,10);
+                var yesterday_3 = new Date((new Date()).valueOf() - 4*1000*60*60*24).toJSON().slice(0,10);
+                // alert(yesterday);
+                // alert(yesterday_1);
+                // alert(yesterday_2);
+                // alert(yesterday_3);
+                var data = google.visualization.arrayToDataTable([
+                    ['Date', 'Traffic'],
+                    [current_date,trafficjson.today],[yesterday,trafficjson.yesterday],[yesterday_1,trafficjson.yesterday_1],[yesterday_2,trafficjson.yesterday_2],[yesterday_3,trafficjson.yesterday_3]
+                ]);
+// Set Options
+                var options = {
+                    title: 'Traffic vs. Date',
+                    hAxis: {title: 'Date'},
+                    vAxis: {title: 'Number of Visitors per day'},
+                    legend: 'none'
+                };
+// Draw
+                var chart = new google.visualization.LineChart(document.getElementById('myChart'));
+                chart.draw(data, options);
+            }
+        </script>
+        <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
+
+        <!--    chart-->
+    </div>
 
 <!--    nermine-->
-    <!--    chart-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script>
-        google.charts.load('current',{packages:['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-// Set Data
-            var current_date = new Date().toJSON().slice(0,10);
-            var data = google.visualization.arrayToDataTable([
-                ['Date', 'Traffic'],
-                [current_date,7],[current_date,8],[current_date,8],[current_date,9],[current_date,9]
-            ]);
-// Set Options
-            var options = {
-                title: 'Traffic vs. Date',
-                hAxis: {title: 'Date'},
-                vAxis: {title: 'Traffic'},
-                legend: 'none'
-            };
-// Draw
-            var chart = new google.visualization.LineChart(document.getElementById('myChart'));
-            chart.draw(data, options);
-        }
-    </script>
-    <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
-    <?php
-    $q = "SELECT * FROM newratinguser WHERE currentdate = now()";
-    $result_select = mysqli_query($con, $query_select);
-    $row_select = mysqli_fetch_assoc($result_select);
-    ?>
-    <!--    chart-->
 </div>
 
 <!-- Jquery JS-->
@@ -279,10 +367,7 @@ FROM accuracy";
 <!-- Main JS-->
 <script src="js/global.js"></script>
 
-<!--nermine-->
-<!-- Tab links -->
 
-<!--nermine-->
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
