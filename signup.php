@@ -7,17 +7,30 @@ require_once 'connection.php';
       $password = $_POST['adpassword'];
       $phone = $_POST['adphone'];
       $password = password_hash($password, PASSWORD_DEFAULT);
-      $query = "INSERT INTO users (role_id,name,email,password,phone_number) VALUES(2,'$name','$email','$password','$phone')";
-      if ( mysqli_query($con, $query)) {
-          $q = 'SELECT * from users ORDER BY id DESC LIMIT 1';
-          $res = mysqli_query($con, $q);
-          $row = mysqli_fetch_assoc($res);
 
-          setcookie("current_user", $row['id'], time() + 2 * 24 * 60 * 60);
-          header('Location: http://localhost/recommender_system/display_movies.php');
+      $sql = "select * from users where (email='$email')";
 
+      $res_sql = mysqli_query($con, $sql);
+
+      if (mysqli_num_rows($res_sql) > 0) {
+
+    $row_sql = mysqli_fetch_assoc($res_sql);
+    if ($email == isset($row_sql['email'])) {
+        $check_msg =  "email already exists";
+    }
       } else {
-          echo "failure:" . mysqli_error($con);
+          $query = "INSERT INTO users (role_id,name,email,password,phone_number) VALUES(2,'$name','$email','$password','$phone')";
+          if (mysqli_query($con, $query)) {
+              $q = 'SELECT * from users ORDER BY id DESC LIMIT 1';
+              $res = mysqli_query($con, $q);
+              $row = mysqli_fetch_assoc($res);
+
+              setcookie("current_user", $row['id'], time() + 2 * 24 * 60 * 60);
+              header('Location: http://localhost/recommender_system/display_movies.php');
+
+          } else {
+              echo "failure:" . mysqli_error($con);
+          }
       }
   }
 
@@ -134,6 +147,7 @@ require_once 'connection.php';
                             <button class="login100-form-btn" name="submit" type="submit">Submit</button>
                         </div>
                     </form>
+                    <span style="color: rgba(160, 5, 5,1);"><?php if(isset($check_msg)) echo '*'.$check_msg;?></span>
                 </div>
             </div>
         </div>

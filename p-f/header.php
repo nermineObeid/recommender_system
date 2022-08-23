@@ -3,33 +3,34 @@
 <head>
     <link href="http://localhost/recommender_system/css/main.css" rel="stylesheet" />
     <script src="http://localhost/recommender_system/js/main.js" defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="http://localhost/recommender_system/js/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://localhost/recommender_system/js/jquery-1.12.4.min.js"></script>
+    <script src="http://localhost/recommender_system/js/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="http://localhost/recommender_system/css/font-awesome.min.css">
 
 
-    <link rel="stylesheet" href="https://petrikor.agency/test/ACG/wp-content/themes/flash/css/normalize.min.css" />
-    <!--    <link rel="stylesheet" href="https://petrikor.agency/test/ACG/wp-content/themes/flash/css/owl.theme.min.css"/>-->
-    <link rel="stylesheet" href="https://petrikor.agency/test/ACG/wp-content/themes/flash/css/owl.carousel.min.css"/>
-    <link rel="stylesheet" href="https://petrikor.agency/test/ACG/wp-content/themes/flash/css/owl.theme.default.min.css"/>
-    <link rel="stylesheet" href="https://petrikor.agency/test/ACG/wp-content/themes/flash/css/animate.min.css"/>
+    <link rel="stylesheet" href="http://localhost/recommender_system/css/normalize.min.css" />
+    <!--    <link rel="stylesheet" href="http://localhost/recommender_system/css/owl.theme.min.css"/>-->
+    <link rel="stylesheet" href="http://localhost/recommender_system/css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="http://localhost/recommender_system/css/owl.theme.default.min.css"/>
+    <link rel="stylesheet" href="http://localhost/recommender_system/css/animate.min.css"/>
 
-    <!--    <link rel="stylesheet" href="https://petrikor.agency/test/ACG/wp-content/themes/flash/css/bootstrap.min.css"/>-->
-    <link rel="stylesheet" href="https://petrikor.agency/test/ACG/wp-content/themes/flash/css/bootstrap.css"/>
+    <!--    <link rel="stylesheet" href="http://localhost/recommender_system/css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" href="http://localhost/recommender_system/css/bootstrap.css"/>
 
-    <!--    <script src="https://petrikor.agency/test/ACG/wp-content/themes/flash/js/bootstrap.min.js" defer></script>-->
-    <script src="https://petrikor.agency/test/ACG/wp-content/themes/flash/js/bootstrap.js" defer></script>
+    <!--    <script src="http://localhost/recommender_system/js/bootstrap.min.js" defer></script>-->
+<!--    <script src="http://localhost/recommender_system/js/bootstrap.js" defer></script>-->
 
-    <script src="https://petrikor.agency/test/ACG/wp-content/themes/flash/js/owl.carousel.js" defer></script>
-    <script src="https://petrikor.agency/test/ACG/wp-content/themes/flash/js/owl.autoplay.js" defer></script>
-    <script src="https://petrikor.agency/test/ACG/wp-content/themes/flash/js/owl.navigation.js" defer></script>
-    <script src="https://petrikor.agency/test/ACG/wp-content/themes/flash/js/owl.support.js" defer></script>
+    <script src="http://localhost/recommender_system/js/owl.carousel.js" defer></script>
+    <script src="http://localhost/recommender_system/js/owl.autoplay.js" defer></script>
+    <script src="http://localhost/recommender_system/js/owl.navigation.js" defer></script>
+    <script src="http://localhost/recommender_system/js/owl.support.js" defer></script>
     <!--    <script src="https://petrikor.agency/test/MBM/wp-content/themes/mbm/js/lazysizes.min.js" ></script>-->
-    <script src="https://petrikor.agency/test/ACG/wp-content/themes/flash/js/owl.animate.js" defer></script>
-    <script src="https://petrikor.agency/test/ACG/wp-content/themes/flash/js/anim.js" defer></script>
+    <script src="http://localhost/recommender_system/js/owl.animate.js" defer></script>
+
+<!--    <script src="http://localhost/recommender_system/js/anim.js" defer></script>-->
 
     <script src="http://localhost/recommender_system/js/main.js"></script>
 
