@@ -1469,20 +1469,20 @@ input, button{
 .signup-page .card-body{
   padding: 40px !important;
 }
-#algorithm_accuracy, #user_accuracy, #add_movie, #traffic{
-  width: 648px !important;
+#algorithm_accuracy, #user_accuracy, #add_movie, #traffic, #most_viewed{
+  width: 810px !important;
   min-height: 328px !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 .tab{
-  width: 648px !important;
+  width: 810px !important;
   border: 0 !important;
 }
 .tablinks{
   width: 162px !important;
 }
-#algorithm_accuracy, #user_accuracy{
+#algorithm_accuracy, #user_accuracy, #most_viewed, #traffic{
   padding: 20px !important;
 }
 .tab button{
@@ -1497,4 +1497,7 @@ input, button{
 }
 #user_accuracy li{
   list-style-type: disclosure-closed !important;
+}
+.warning-msg{
+  padding-top: 20px !important;
 }

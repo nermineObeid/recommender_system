@@ -211,7 +211,8 @@ if (isset($_POST['submit'])) {
         <button class="tablinks active bord-right" onclick="openCity(event, 'add_movie')">Add Movie</button>
         <button class="tablinks bord-right" onclick="openCity(event, 'user_accuracy')">User Accuracy</button>
         <button class="tablinks bord-right" onclick="openCity(event, 'algorithm_accuracy')">Algorithm Accuracy</button>
-        <button class="tablinks" onclick="openCity(event, 'traffic')">Website Traffic</button>
+        <button class="tablinks bord-right" onclick="openCity(event, 'traffic')">Website Traffic</button>
+        <button class="tablinks" onclick="openCity(event, 'most_viewed')">Most Viewed Movie Today</button>
     </div>
 
     <!-- Tab content -->
@@ -252,7 +253,7 @@ if (isset($_POST['submit'])) {
                             <button class="login100-form-btn" name="submit" type="submit">Add</button>
                         </div>
                     </form>
-                    <p class="p-t-15"><b style="color: rgba(160, 5, 5,1);">WARNING: </b>It takes at least  30 minutes to <a href="http://localhost/recommender_system/dataminnungone.php" style="color: black;text-decoration: underline"><b>Rerun</b></a> the Algorithm</p>
+                    <p class="warning-msg"><b style="color: rgba(160, 5, 5,1);">WARNING: </b>It takes at least  30 minutes to <a href="http://localhost/recommender_system/dataminnungone.php" style="color: black;text-decoration: underline"><b>Rerun</b></a> the Algorithm</p>
 
                 </div>
             </div>
@@ -348,9 +349,25 @@ FROM accuracy";
                 chart.draw(data, options);
             }
         </script>
-        <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
+        <div id="myChart" style="width:100%; max-width:600px;"></div>
 
         <!--    chart-->
+    </div>
+    <div id="most_viewed" class="tabcontent" style="display: none;">
+        <?php
+        $query = "SELECT *, COUNT(movies.movieId) FROM movies JOIN newratinguser ON movies.movieId=newratinguser.movieId  GROUP BY movies.movieId HAVING COUNT(newratinguser.id) > 3 ORDER BY COUNT(movies.movieId) DESC LIMIT 1";
+
+        $result = mysqli_query($con, $query);
+        $nofrows = mysqli_num_rows($result);
+        if ($nofrows >0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                if (stristr($row['currentdate'], $current_date)) {?>
+                    <h3><?=$row['COUNT(movies.movieId)'];?> Views of '<?=$row['title'];?>' of id <?=$row['movieId'];?></h3>
+             <?php   }
+            }
+        }
+
+        ?>
     </div>
 
 <!--    nermine-->
