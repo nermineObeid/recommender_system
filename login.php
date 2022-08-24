@@ -11,6 +11,7 @@ if(isset($_POST['wemail']) && isset($_POST['wpassword'])) {
     if ($nofrows >0) {
         if($row['role_id']==2){
         setcookie("current_user", $row['id'], time() + 2 * 24 * 60 * 60);
+        setcookie("user_status", 'loggedin', time() + 2 * 24 * 60 * 60);
         header('Location: http://localhost/recommender_system/display_movies.php');
         }
         else{

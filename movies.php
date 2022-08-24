@@ -31,7 +31,7 @@ $cookiePath = "/";
                     var movieID = getCookie('movie_id_clicked');
 
                     jQuery('.rate input').on('click', function(){
-
+jQuery('.rate input').removeClass('radio_checked');
                         createCookie("ratingNum", jQuery(this).val(), "10");
                         var ratingNum = jQuery(this).val();
                         $.ajax({
@@ -391,19 +391,19 @@ while($row_rating = mysqli_fetch_assoc($result_rating)) {
         <div class="flex-1200">
             <div class="rate">
                 <input type="radio" id="star5" name="rating"
-                       value="5" <?php echo ($row_rating['average_rating'] >= 5) ? 'checked="checked"' : ''; ?>>
+                       value="5" <?php echo ($row_rating['average_rating'] >= 5) ? 'checked="checked" class="radio_checked"' : ''; ?>>
                 <label for="star5"></label>
                 <input type="radio" id="star4" name="rating"
-                       value="4" <?php echo ($row_rating['average_rating'] >= 4) ? 'checked="checked"' : ''; ?>>
+                       value="4" <?php echo ($row_rating['average_rating'] >= 4) ? 'checked="checked" class="radio_checked"' : ''; ?>>
                 <label for="star4"></label>
-                <input type="radio" id="star3" name="rating"
-                       value="3" <?php echo ($row_rating['average_rating'] >= 3) ? 'checked="checked"' : ''; ?>>
+                <input type="radio" class="nermine" id="star3" name="rating"
+                       value="3" <?php echo ($row_rating['average_rating'] >= 3) ? 'checked="checked" class="radio_checked"' : ''; ?>>
                 <label for="star3"></label>
                 <input type="radio" id="star2" name="rating"
-                       value="2" <?php echo ($row_rating['average_rating'] >= 2) ? 'checked="checked"' : ''; ?>>
+                       value="2" <?php echo ($row_rating['average_rating'] >= 2) ? 'checked="checked" class="radio_checked"' : ''; ?>>
                 <label for="star2"></label>
                 <input type="radio" id="star1" name="rating"
-                       value="1" <?php echo ($row_rating['average_rating'] >= 1) ? 'checked="checked"' : ''; ?>>
+                       value="1" <?php echo ($row_rating['average_rating'] >= 1) ? 'checked="checked" class="radio_checked"' : ''; ?>>
                 <label for="star1"></label>
             </div>
             <div class="overall-rating">
@@ -417,31 +417,33 @@ while($row_rating = mysqli_fetch_assoc($result_rating)) {
 }
 }
 else{?>
-    <div class="flex-1200">
-        <div class="rate">
-            <input type="radio" id="star5" name="rating"
-                   value="5">
-            <label for="star5"></label>
-            <input type="radio" id="star4" name="rating"
-                   value="4">
-            <label for="star4"></label>
-            <input type="radio" id="star3" name="rating"
-                   value="3">
-            <label for="star3"></label>
-            <input type="radio" id="star2" name="rating"
-                   value="2">
-            <label for="star2"></label>
-            <input type="radio" id="star1" name="rating"
-                   value="1">
-            <label for="star1"></label>
-        </div>
-
-
-    </div>
+<!--    <div class="flex-1200">-->
+<!--        <div class="rate">-->
+<!--            <input type="radio" id="star5" name="rating"-->
+<!--                   value="5">-->
+<!--            <label for="star5"></label>-->
+<!--            <input type="radio" id="star4" name="rating"-->
+<!--                   value="4">-->
+<!--            <label for="star4"></label>-->
+<!--            <input type="radio" id="star3" name="rating"-->
+<!--                   value="3">-->
+<!--            <label for="star3"></label>-->
+<!--            <input type="radio" id="star2" name="rating"-->
+<!--                   value="2">-->
+<!--            <label for="star2"></label>-->
+<!--            <input type="radio" id="star1" name="rating"-->
+<!--                   value="1">-->
+<!--            <label for="star1"></label>-->
+<!--        </div>-->
+<!---->
+<!---->
+<!--    </div>-->
 <?php }
 
 ?>
 <div class="clearfix"></div>
+    <div class="hide-section"></div>
+
 </div>
 
 <?php
@@ -472,7 +474,6 @@ else{?>
 //// close curl resource to free up system resources
 //curl_close($ch);
 ?>
-
 <iframe class="iframe_section" src="https://www.themoviedb.org/movie/<?= $tmdb_id?>-<?=$lowercase_movie?>" height="500" width="100%" >
 
 </iframe>

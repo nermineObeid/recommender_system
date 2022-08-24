@@ -243,13 +243,13 @@ while ($row_most = mysqli_fetch_assoc($result_most)) { ?>
 if(isset($_COOKIE['current_user'])) {
 $current_user = $_COOKIE['current_user'];
 
-$query_acc = "SELECT * FROM `accuracy` WHERE userId = '$current_user'";
-$result_acc = mysqli_query($con, $query_acc);
-while($row_acc = mysqli_fetch_assoc($result_acc)) {
-    $accuracy_percentage_double = (double)$row_acc['accuracy'] *100;
-    $accuracy_percentage_int = (int)$accuracy_percentage_double; ?>
-<h2><?=round($accuracy_percentage_int);?>% Match</h2>
-<?php }
+//$query_acc = "SELECT * FROM `accuracy` WHERE userId = '$current_user'";
+//$result_acc = mysqli_query($con, $query_acc);
+//while($row_acc = mysqli_fetch_assoc($result_acc)) {
+//    $accuracy_percentage_double = (double)$row_acc['accuracy'] *100;
+//    $accuracy_percentage_int = (int)$accuracy_percentage_double; ?>
+<!--<h2>--><?//=round($accuracy_percentage_int);?><!--% Match</h2>-->
+<?php //}
 
     $query = "SELECT *
 FROM movies
@@ -310,6 +310,7 @@ WHERE userId=" . $current_user . " AND rating >= 3.5";
     $c = 0;
 
 if ($count > 9) {
+
 //        if ($count > 0) {
 ////            return var_dump($count);
             while ($row = mysqli_fetch_assoc($result)) {
@@ -434,6 +435,7 @@ WHERE userId=" . $current_user . " AND rating >= 3.5 ORDER BY newratinguser.id D
         $query_datamining_first = "SELECT filmget FROM `dataminning` WHERE film LIKE '%" . $latest_movies[0] . "%' AND type LIKE '%" . $all_interested_genres[0] . "%' AND support >=2";
         $result_datamining = mysqli_query($con, $query_datamining_first);
         while ($row_datamining = mysqli_fetch_assoc($result_datamining)) {
+////                    echo var_dump($row_datamining);
             array_push($datamining_result, $row_datamining['filmget']);
 
 ////            }
@@ -469,15 +471,12 @@ WHERE userId=" . $current_user . " AND rating >= 3.5 ORDER BY newratinguser.id D
             $datamining_result_string = '';
 
             for ($index_data = 0; $index_data < count($datamining_result_unique); $index_data++) {
-//                $query_getid = "SELECT * FROM movies
-//JOIN ratings ON movies.movieId = ratings.movieId  WHERE movies.title LIKE '%$datamining_result_unique[$index_data]%'";
-                $query_getid = "SELECT * FROM movies WHERE title LIKE '%$datamining_result_unique[$index_data]%'";
+                $query_getid = "SELECT * FROM movies
+JOIN ratings ON movies.movieId = ratings.movieId  WHERE movies.title LIKE '%$datamining_result_unique[$index_data]%'";
 
 //                $query_getid = "SELECT * FROM movies WHERE title LIKE '%$datamining_result_unique[$index_data]%'";
                 $result_getid = mysqli_query($con, $query_getid);
             $row_getid = mysqli_fetch_assoc($result_getid);
-//                return var_dump($row_getid);
-
                 ?>
                 <div class="item">
 <!--                    <img src="--><?//= SITEURL; ?><!--images/film-svgrepo-com.svg"> -->
@@ -607,12 +606,6 @@ WHERE userId=" . $current_user . " AND rating >= 3.5 ORDER BY newratinguser.id D
     }
 
     else {
-
-//return var_dump('<9');
-
-//$query_random = "SELECT * FROM movies
-//JOIN ratings ON movies.movieId = ratings.movieId ORDER BY RAND()
-//LIMIT 10";
 //generate random numbers
 function UniqueRandomNumbersWithinRange($min, $max, $quantity) {
     $numbers = range($min, $max);
@@ -633,8 +626,9 @@ $result_random = mysqli_query($con, $query_random);
 <h2 class="recommended_title">Recommended Movies</h2>
 <div class="owl-carousel owl-theme latest-carousel">
     <?php
+//    return var_dump($result_random);
     while ($row_random = mysqli_fetch_assoc($result_random)) {
-//        return var_dump($count);
+
         ?>
         <div class="item" >
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -682,8 +676,7 @@ $result_random = mysqli_query($con, $query_random);
     }
 }
 else{
-    $query_random = "SELECT * FROM movies ORDER BY RAND()
-LIMIT 10";
+    $query_random = "SELECT * FROM movies ORDER BY RAND() LIMIT 10";
     $result_random = mysqli_query($con, $query_random);
     ?>
     <h2 class="recommended_title">Recommended Movies</h2>

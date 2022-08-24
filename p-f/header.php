@@ -6,9 +6,9 @@
     <script src="http://localhost/recommender_system/js/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="http://localhost/recommender_system/js/jquery-1.12.4.min.js"></script>
-    <script src="http://localhost/recommender_system/js/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="http://localhost/recommender_system/js/popper.min.js"></script>
 <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
-    <link rel="stylesheet" href="http://localhost/recommender_system/css/font-awesome.min.css">
+<!--    <link rel="stylesheet" href="http://localhost/recommender_system/css/font-awesome.min.css">-->
 
 
     <link rel="stylesheet" href="http://localhost/recommender_system/css/normalize.min.css" />
@@ -121,8 +121,17 @@ $genres = array(
 
 
     </select></li>
-        <li><a href="<?=SITEURL?>signup.php">Sign Up</a></li>
-        <li><a href="<?=SITEURL?>login.php">Login</a></li>
+            <?php
+            if(!isset($_COOKIE['user_status'])) { ?>
+                <li><a href="<?= SITEURL ?>signup.php">Sign Up</a></li>
+                <li><a href="<?= SITEURL ?>login.php">Login</a></li>
+                <?php
+            }
+            if(isset($_COOKIE['user_status'])){ ?>
+                <li><a href="<?=SITEURL?>logout.php">Logout</a></li>
+           <?php }
+            ?>
+
             <li><a href="<?=SITEURL?>display_savedmovies.php">Watchlist</a></li>
             <li class="search-li">
                 <form action="http://localhost/recommender_system/search.php" method="POST">

@@ -2,7 +2,11 @@
 *{
   font-family: 'Audiowide', cursive !important;
 }
+i{
+  font-family: FontAwesome !important;
+}
 html {
+  overflow-x: hidden !important;
   line-height: 1.15;
   /* 1 */
   -ms-text-size-adjust: 100%;
@@ -1504,4 +1508,15 @@ input, button{
 }
 .warning-msg{
   padding-top: 20px !important;
+}
+.hide-section{
+  position: absolute;
+  bottom: -65px;
+  height: 69px;
+  background-color: white;
+  z-index: 9999;
+  width: 100% !important;
+}
+.parent-int-movies{
+  position: relative;
 }

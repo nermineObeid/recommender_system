@@ -26,6 +26,7 @@ require_once 'connection.php';
               $row = mysqli_fetch_assoc($res);
 
               setcookie("current_user", $row['id'], time() + 2 * 24 * 60 * 60);
+              setcookie("user_status", 'loggedin', time() + 2 * 24 * 60 * 60);
               header('Location: http://localhost/recommender_system/display_movies.php');
 
           } else {

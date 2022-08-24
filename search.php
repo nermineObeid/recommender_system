@@ -55,12 +55,14 @@ require_once 'connection.php'; ?>
 <?php
 require_once 'connection.php';
 $search_input = $_POST['search_field'];
-$query = "SELECT * FROM movies WHERE title LIKE '%$search_input%' OR genres LIKE '%$search_input%' ";
+$query = 'SELECT * FROM movies WHERE title LIKE "%'.$search_input.'%" OR genres LIKE "%'.$search_input.'%" ';
 
 
 $result = mysqli_query($con, $query);
+//return var_dump($search_input);
 
 $count = mysqli_num_rows($result);
+//return var_dump($count);
 if($count>0){ ?>
 <div class="row list-genres">
  <?php   while($row = mysqli_fetch_assoc($result)){ ?>

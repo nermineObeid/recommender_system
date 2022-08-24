@@ -16,6 +16,7 @@ $recommended = $_POST['recommended'];
 $movieid = $_COOKIE['movie_id_clicked'];
 $moviename = $_COOKIE['movie_name_clicked'];
 $current_user = $_COOKIE['current_user'];
+$current_date = date("Y-m-d");
 if(isset($_COOKIE['ratingNum'])){
     $ratingNum = $_COOKIE['ratingNum'];
 }
@@ -24,8 +25,10 @@ else{
 }
 //recommended
 if($recommended=='true'){
+//    $query = "INSERT INTO `newratinguser` (userId,movieId,rating,currentdate)
+//	VALUES ($current_user,$movieid,$ratingNum,now())";
     $query = "INSERT INTO `newratinguser` (userId,movieId,rating,currentdate)
-	VALUES ($current_user,$movieid,$ratingNum,now())";
+	VALUES ($current_user,$movieid,$ratingNum,'$current_date')";
     if (mysqli_query($con, $query)) {
         echo json_encode(array("statusCode" => 200));
 
@@ -110,8 +113,10 @@ if($recommended=='true'){
 }else {
 
 
+//    $query = "INSERT INTO `newratinguser` (userId,movieId,rating,currentdate)
+//	VALUES ($current_user,$movieid,$ratingNum,now())";
     $query = "INSERT INTO `newratinguser` (userId,movieId,rating,currentdate)
-	VALUES ($current_user,$movieid,$ratingNum,now())";
+	VALUES ($current_user,$movieid,$ratingNum,'$current_date')";
     if (mysqli_query($con, $query)) {
         echo json_encode(array("statusCode" => 200));
 

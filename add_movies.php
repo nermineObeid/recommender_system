@@ -262,8 +262,7 @@ if (isset($_POST['submit'])) {
 
     <div id="user_accuracy" class="tabcontent" style="display: none;">
         <ul>
-        <li><div class="row">
-            <div class="col-sm-6">
+
 <!--                <p>User id = -->
                 <?php
                 $query = "SELECT *
@@ -276,7 +275,9 @@ JOIN accuracy ON users.id=accuracy.userId";
                 if ($nofrows >0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         ?>
-                <p><b>User id:</b> <?=$row['id'];?> </br> <b>email: </b><?= $row['email'];?></p>
+                        <li><div class="row">
+                                <div class="col-sm-6">
+                <p><b>User id:</b> <?=$row['userId'];?> </br> <b>email: </b><?= $row['email'];?></p>
 
             </div>
             <div class="col-sm-6">
@@ -284,8 +285,8 @@ JOIN accuracy ON users.id=accuracy.userId";
                 $user_acc = $user_acc*100;
                 ?>
                 <p><b>Accuracy: </b><?= round($user_acc).'%'?></p>
-            </div>
-            </div></li>
+            </div> </div>
+            </li>
         <?php }
         }
         ?>
@@ -355,15 +356,18 @@ FROM accuracy";
     </div>
     <div id="most_viewed" class="tabcontent" style="display: none;">
         <?php
-        $query = "SELECT *, COUNT(movies.movieId) FROM movies JOIN newratinguser ON movies.movieId=newratinguser.movieId  GROUP BY movies.movieId HAVING COUNT(newratinguser.id) > 3 ORDER BY COUNT(movies.movieId) DESC LIMIT 1";
+//        $query = "SELECT *, COUNT(movies.movieId) FROM movies JOIN newratinguser ON movies.movieId=newratinguser.movieId  GROUP BY movies.movieId HAVING COUNT(newratinguser.id) > 2 ORDER BY COUNT(movies.movieId) DESC LIMIT 1 WHERE currentdate LIKE '%$current_date%'";
+        $query = "SELECT *, COUNT(movies.movieId) FROM movies JOIN newratinguser ON movies.movieId=newratinguser.movieId  WHERE currentdate LIKE '%$current_date%' GROUP BY movies.movieId ORDER BY COUNT(movies.movieId) DESC LIMIT 1";
 
         $result = mysqli_query($con, $query);
         $nofrows = mysqli_num_rows($result);
         if ($nofrows >0) {
             while ($row = mysqli_fetch_assoc($result)) {
-                if (stristr($row['currentdate'], $current_date)) {?>
+//                if (stristr($row['currentdate'], $current_date)) {
+                    ?>
                     <h3><?=$row['COUNT(movies.movieId)'];?> Views of '<?=$row['title'];?>' of id <?=$row['movieId'];?></h3>
-             <?php   }
+             <?php
+//            }
             }
         }
 
