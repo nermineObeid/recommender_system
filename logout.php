@@ -37,10 +37,7 @@ require_once 'connection.php';
 
     setcookie("current_user", "", time() - 3600);
     unset ($_COOKIE['current_user']);
-
-    if(isset($_COOKIE['current_user'])){
-        echo var_dump('isset');
-    }
+    header('Location: http://localhost/recommender_system/signup.php');
 
     include('p-f/header.php'); ?>
 </head>

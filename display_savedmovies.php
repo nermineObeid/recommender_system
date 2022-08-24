@@ -87,13 +87,14 @@ if($count>0) {
     }
 }
 else{ ?>
-    <div class="max-1200"><p class="login-signup">You have to <a href="https://liuthesis.000webhostapp.com/login.php">Login</a> or <a href="https://liuthesis.000webhostapp.com/signup.php">Sign up</a> to save movies in your watchlist</p></div>
+    <div class="max-1200"><p class="login-signup">There is no Saved Movies. <a href="http://localhost/recommender_system/display_movies.php">Watch More!</a></p></div>
+
 
 <?php }?>
 </div>
 <?php }
 else{ ?>
-   <div class="max-1200"><p class="login-signup">You have to <a href="https://liuthesis.000webhostapp.com/login.php">Login</a> or <a href="https://liuthesis.000webhostapp.com/signup.php">Sign up</a> to save movies in your watchlist</p></div>
+    <div class="max-1200"><p class="login-signup">You have to <a href="http://localhost/recommender_system/login.php">Login</a> or <a href="http://localhost/recommender_system/signup.php">Sign up</a> to save movies in your watchlist</p></div>
 <?php }
 ?>
 <div class="clearfix"></div>

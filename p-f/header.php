@@ -101,10 +101,10 @@ $genres = array(
 ?>
 <div class="parent-header">
 <div class="menu-header row">
-    <div class="col-sm-6 logo-div flex-center"><a href="http://localhost/recommender_system/index.php">
+    <div class="col-sm-5 logo-div flex-center"><a href="http://localhost/recommender_system/index.php">
             <img src="<?=SITEURL?>images/cinema.png">
         </a></div>
-    <div class="col-sm-6"><ul class="menu-items">
+    <div class="col-sm-7"><ul class="menu-items">
 <!--        <li><a href="--><?//=SITEURL?><!--index.php">Home</a></li>-->
             <li><select class="sitemap" name="genres_select">
                     <option selected="" value="" disabled> -- Genres -- </option>
@@ -132,7 +132,7 @@ $genres = array(
            <?php }
             ?>
 
-            <li><a href="<?=SITEURL?>display_savedmovies.php">Watchlist</a></li>
+            <li><a href="<?=SITEURL?>display_savedmovies.php">Wishlist</a></li>
             <li class="search-li">
                 <form action="http://localhost/recommender_system/search.php" method="POST">
                     <input type="text" name="search_field" id="search" placeholder="Search" />
