@@ -117,15 +117,14 @@ jQuery('.rate input').removeClass('radio_checked');
                     });
                     // window.location.href = imdb_link;
                 });
-
+                    jQuery('.iframe_section').css('opacity',0);
                     jQuery('.tmdb_movie').click(function (e) {
                         e.preventDefault();
                         var movie_id = jQuery(this).parent().parent().attr('id');
                         var tmdb_link = jQuery(this).attr('href');
                         var user_id = getCookie('current_user');
                         createCookie('avgRating',jQuery('.overall-rating #avgrat').text(),10);
-                        jQuery('.iframe_section').show();
-
+                        jQuery('.iframe_section').css('opacity',1);
                         let searchParams = new URLSearchParams(window.location.search);
                         searchParams.has('name');
                         let recommended_check = searchParams.get('recommended');

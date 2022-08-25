@@ -114,19 +114,55 @@ if (isset($_POST['submit'])) {
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script type="text/javascript">
-        google.charts.load('current',{packages:['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-        var trafficjson = jQuery.parseJSON(getCookie('traffic'));
-
-        var trafficjson_today = trafficjson.today;
-        var trafficjson_yesterday = trafficjson.yesterday;
-        var trafficjson_yesterday_1 = trafficjson.yesterday_1;
-        var trafficjson_yesterday_2 = trafficjson.yesterday_2;
-        var trafficjson_yesterday_3 = trafficjson.yesterday_3;
-
-
-        function drawChart() {
-// Set Data
+//         google.charts.load('current',{packages:['corechart']});
+//         google.charts.setOnLoadCallback(drawChart);
+//         var trafficjson = jQuery.parseJSON(getCookie('traffic'));
+//
+//         var trafficjson_today = trafficjson.today;
+//         var trafficjson_yesterday = trafficjson.yesterday;
+//         var trafficjson_yesterday_1 = trafficjson.yesterday_1;
+//         var trafficjson_yesterday_2 = trafficjson.yesterday_2;
+//         var trafficjson_yesterday_3 = trafficjson.yesterday_3;
+//
+//
+//         function drawChart() {
+// // Set Data
+//             var trafficjson = jQuery.parseJSON(getCookie('traffic'));
+//
+//             var trafficjson_today = trafficjson.today;
+//             var trafficjson_yesterday = trafficjson.yesterday;
+//             var trafficjson_yesterday_1 = trafficjson.yesterday_1;
+//             var trafficjson_yesterday_2 = trafficjson.yesterday_2;
+//             var trafficjson_yesterday_3 = trafficjson.yesterday_3;
+//
+//             var current_date = new Date().toJSON().slice(0,10);
+//             var yesterday = new Date((new Date()).valueOf() - 1000*60*60*24).toJSON().slice(0,10);
+//             var yesterday_1 = new Date((new Date()).valueOf() - 2*1000*60*60*24).toJSON().slice(0,10);
+//             var yesterday_2 = new Date((new Date()).valueOf() - 3*1000*60*60*24).toJSON().slice(0,10);
+//             var yesterday_3 = new Date((new Date()).valueOf() - 4*1000*60*60*24).toJSON().slice(0,10);
+//             // alert(yesterday);
+//             // alert(yesterday_1);
+//             // alert(yesterday_2);
+//             // alert(yesterday_3);
+//             var data = google.visualization.arrayToDataTable([
+//                 ['Date', 'Traffic'],
+//                 [current_date,trafficjson_today],[yesterday,trafficjson_yesterday],[yesterday_1,trafficjson_yesterday_1],[yesterday_2,trafficjson_yesterday_2],[yesterday_3,trafficjson_yesterday_3]
+//             ]);
+// // Set Options
+//             var options = {
+//                 title: 'Traffic vs. Date',
+//                 hAxis: {title: 'Date'},
+//                 vAxis: {title: 'Number of Visitors per day'},
+//                 width:650,
+//                 height:500,
+//                 legend: 'none'
+//             };
+// // Draw
+//             var chart = new google.visualization.LineChart(document.getElementById('myChart'));
+//             chart.draw(data, options);
+//         }
+        // nermine
+        window.onload = function () {
             var trafficjson = jQuery.parseJSON(getCookie('traffic'));
 
             var trafficjson_today = trafficjson.today;
@@ -140,27 +176,60 @@ if (isset($_POST['submit'])) {
             var yesterday_1 = new Date((new Date()).valueOf() - 2*1000*60*60*24).toJSON().slice(0,10);
             var yesterday_2 = new Date((new Date()).valueOf() - 3*1000*60*60*24).toJSON().slice(0,10);
             var yesterday_3 = new Date((new Date()).valueOf() - 4*1000*60*60*24).toJSON().slice(0,10);
-            // alert(yesterday);
-            // alert(yesterday_1);
-            // alert(yesterday_2);
-            // alert(yesterday_3);
-            var data = google.visualization.arrayToDataTable([
-                ['Date', 'Traffic'],
-                [current_date,trafficjson_today],[yesterday,trafficjson_yesterday],[yesterday_1,trafficjson_yesterday_1],[yesterday_2,trafficjson_yesterday_2],[yesterday_3,trafficjson_yesterday_3]
-            ]);
-// Set Options
+
             var options = {
-                title: 'Traffic vs. Date',
-                hAxis: {title: 'Date'},
-                vAxis: {title: 'Number of Visitors per day'},
-                width:650,
-                height:500,
-                legend: 'none'
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Traffic vs. Date"
+                },
+                axisX:{
+                    valueFormatString: "YYYY-MM-DD"
+                },
+                axisY: {
+                    title: "Number of Visitors per day",
+                    suffix: "",
+                    minimum: 0
+                },
+                toolTip:{
+                    shared:true
+                },
+                legend:{
+                    cursor:"pointer",
+                    verticalAlign: "bottom",
+                    horizontalAlign: "left",
+                    dockInsidePlotArea: true,
+                    itemclick: toogleDataSeries
+                },
+                data: [
+                    {
+                        type: "line",
+                        showInLegend: true,
+                        name: "Actual Sales",
+                        lineDashType: "dash",
+                        yValueFormatString: "$####",
+                        dataPoints: [
+                            { x: new Date().toJSON().slice(0,10), y: 1 },
+                            { x: new Date((new Date()).valueOf() - 1000*60*60*24).toJSON().slice(0,10), y: 2 },
+                            { x: new Date((new Date()).valueOf() - 2000*60*60*24).toJSON().slice(0,10), y: 3 },
+                            { x: new Date((new Date()).valueOf() - 3000*60*60*24).toJSON().slice(0,10), y: 4 },
+                            { x: new Date((new Date()).valueOf() - 4000*60*60*24).toJSON().slice(0,10), y: 5 }
+                        ]
+                    }]
             };
-// Draw
-            var chart = new google.visualization.LineChart(document.getElementById('myChart'));
-            chart.draw(data, options);
+            $("#chartContainer").CanvasJSChart(options);
+
+            function toogleDataSeries(e){
+                if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else{
+                    e.dataSeries.visible = true;
+                }
+                e.chart.render();
+            }
+
         }
+        // nermine
 
         function createCookie(name, value, days) {
             var expires;
@@ -367,7 +436,9 @@ FROM accuracy";
     <div id="traffic" class="tabcontent" style="display: none;">
         <!--    chart-->
 
-        <div id="myChart" style="width:100%; min-width:800px;"></div>
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
         <!--    chart-->
     </div>
