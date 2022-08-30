@@ -113,54 +113,82 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" type="text/css" href="http://localhost/recommender_system/css/main.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+
     <script type="text/javascript">
-        google.charts.load('current',{packages:['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-        var trafficjson = jQuery.parseJSON(getCookie('traffic'));
+        window.onload = function () {
+            var current_date = new Date().toJSON().slice(0,10);
+            // alert(current_date);
+            var yesterday = new Date((new Date()).valueOf() - 1000*60*60*24).toJSON().slice(0,10);
+            var yesterday_1 = new Date((new Date()).valueOf() - 2*1000*60*60*24).toJSON().slice(0,10);
+            var yesterday_2 = new Date((new Date()).valueOf() - 3*1000*60*60*24).toJSON().slice(0,10);
+            var yesterday_3 = new Date((new Date()).valueOf() - 4*1000*60*60*24).toJSON().slice(0,10);
 
-        var trafficjson_today = trafficjson.today;
-        var trafficjson_yesterday = trafficjson.yesterday;
-        var trafficjson_yesterday_1 = trafficjson.yesterday_1;
-        var trafficjson_yesterday_2 = trafficjson.yesterday_2;
-        var trafficjson_yesterday_3 = trafficjson.yesterday_3;
-
-
-        function drawChart() {
-// Set Data
             var trafficjson = jQuery.parseJSON(getCookie('traffic'));
-
             var trafficjson_today = trafficjson.today;
             var trafficjson_yesterday = trafficjson.yesterday;
             var trafficjson_yesterday_1 = trafficjson.yesterday_1;
             var trafficjson_yesterday_2 = trafficjson.yesterday_2;
             var trafficjson_yesterday_3 = trafficjson.yesterday_3;
+            var y = 0;
+            var data = [];
+            var dataSeries = { type: "line",lineColor: "rgba(160, 5, 5,1)", color: "black" };
+            var dataPoints = [];
 
-            var current_date = new Date().toJSON().slice(0,10);
-            var yesterday = new Date((new Date()).valueOf() - 1000*60*60*24).toJSON().slice(0,10);
-            var yesterday_1 = new Date((new Date()).valueOf() - 2*1000*60*60*24).toJSON().slice(0,10);
-            var yesterday_2 = new Date((new Date()).valueOf() - 3*1000*60*60*24).toJSON().slice(0,10);
-            var yesterday_3 = new Date((new Date()).valueOf() - 4*1000*60*60*24).toJSON().slice(0,10);
-            // alert(yesterday);
-            // alert(yesterday_1);
-            // alert(yesterday_2);
-            // alert(yesterday_3);
-            var data = google.visualization.arrayToDataTable([
-                ['Date', 'Traffic'],
-                [current_date,trafficjson_today],[yesterday,trafficjson_yesterday],[yesterday_1,trafficjson_yesterday_1],[yesterday_2,trafficjson_yesterday_2],[yesterday_3,trafficjson_yesterday_3]
-            ]);
-// Set Options
+            dataPoints.push({
+                y: trafficjson_today,
+                label: current_date
+                // x: '2014-05-06 12:02 PM'
+
+            });
+            dataPoints.push({
+                y: trafficjson_yesterday,
+                label: yesterday
+                //x: '2014-06-06 12:02 PM'
+            });
+            dataPoints.push({
+                y: trafficjson_yesterday_1,
+                label: yesterday_1
+                //x: '2014-07-06 12:02 PM'
+            });
+            dataPoints.push({
+                y: trafficjson_yesterday_2,
+                label: yesterday_2
+                //x: '2014-08-06 12:02 PM'
+            });
+            dataPoints.push({
+                y: trafficjson_yesterday_3,
+                label: yesterday_3
+                //x: '2014-08-06 12:02 PM'
+            });
+            dataSeries.dataPoints = dataPoints;
+            data.push(dataSeries);
+
+//Better to construct options first and then pass it as a parameter
             var options = {
-                title: 'Traffic vs. Date',
-                hAxis: {title: 'Date'},
-                vAxis: {title: 'Number of Visitors per day'},
-                width:650,
-                height:500,
-                legend: 'none'
+                zoomEnabled: true,
+                title: {
+                    text: "Traffic vs. Date during last 5 days"
+                },
+                axisX: {
+                    labelAngle: -60,
+                    title: 'Date'
+                },
+                axisY: {
+                    title: 'Number of Visitors per day',
+                    includeZero: false
+                },
+
+                data: data  // random data
             };
-// Draw
-            var chart = new google.visualization.LineChart(document.getElementById('myChart'));
-            chart.draw(data, options);
-        }
+
+            var chart = new CanvasJS.Chart("chartContainer", options);
+            chart.render();
+
+
+
+            }
+
+
 
         function createCookie(name, value, days) {
             var expires;
@@ -255,7 +283,7 @@ if (isset($_POST['submit'])) {
 
 <body>
 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins container-login100 signup-page" style="background-image: url('images/depositphotos_5551251-stock-photo-cinema.jpg') !important;">
-<!--    nermine-->
+    <!--    nermine-->
     <div class="tab">
         <button class="tablinks active bord-right" onclick="openCity(event, 'add_movie')">Add Movie</button>
         <button class="tablinks bord-right" onclick="openCity(event, 'user_accuracy')">User Accuracy</button>
@@ -312,33 +340,33 @@ if (isset($_POST['submit'])) {
     <div id="user_accuracy" class="tabcontent" style="display: none;">
         <ul>
 
-<!--                <p>User id = -->
-                <?php
-                $query = "SELECT *
+            <!--                <p>User id = -->
+            <?php
+            $query = "SELECT *
 FROM users
 JOIN accuracy ON users.id=accuracy.userId";
 
-                $result = mysqli_query($con, $query);
-                $nofrows = mysqli_num_rows($result);
-//                $row = mysqli_fetch_assoc($result);
-                if ($nofrows >0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                        <li><div class="row">
-                                <div class="col-sm-6">
-                <p><b>User id:</b> <?=$row['userId'];?> </br> <b>email: </b><?= $row['email'];?></p>
+            $result = mysqli_query($con, $query);
+            $nofrows = mysqli_num_rows($result);
+            //                $row = mysqli_fetch_assoc($result);
+            if ($nofrows >0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <li><div class="row">
+                            <div class="col-sm-6">
+                                <p><b>User id:</b> <?=$row['userId'];?> </br> <b>email: </b><?= $row['email'];?></p>
 
-            </div>
-            <div class="col-sm-6">
-                <?php $user_acc = (double)$row['accuracy'];
-                $user_acc = $user_acc*100;
-                ?>
-                <p><b>Accuracy: </b><?= round($user_acc).'%'?></p>
-            </div> </div>
-            </li>
-        <?php }
-        }
-        ?>
+                            </div>
+                            <div class="col-sm-6">
+                                <?php $user_acc = (double)$row['accuracy'];
+                                $user_acc = $user_acc*100;
+                                ?>
+                                <p><b>Accuracy: </b><?= round($user_acc).'%'?></p>
+                            </div> </div>
+                    </li>
+                <?php }
+            }
+            ?>
         </ul></div>
 
     <div id="algorithm_accuracy" class="tabcontent" style="display: none;">
@@ -352,12 +380,12 @@ FROM accuracy";
         $accuracy_arr = array();
         $accuracy = 0;
         if ($nofrows >0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            array_push($accuracy_arr,(double)$row['accuracy']);
-        }
+            while ($row = mysqli_fetch_assoc($result)) {
+                array_push($accuracy_arr,(double)$row['accuracy']);
+            }
         }
         foreach($accuracy_arr as $accuracy_ar){
-           $accuracy+= $accuracy_ar;
+            $accuracy+= $accuracy_ar;
         }
         $accuracy = ($accuracy/$nofrows)*100;
 
@@ -367,13 +395,14 @@ FROM accuracy";
     <div id="traffic" class="tabcontent" style="display: none;">
         <!--    chart-->
 
-        <div id="myChart" style="width:100%; min-width:800px;"></div>
-
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
         <!--    chart-->
     </div>
     <div id="most_viewed" class="tabcontent" style="display: none;">
         <?php
-//        $query = "SELECT *, COUNT(movies.movieId) FROM movies JOIN newratinguser ON movies.movieId=newratinguser.movieId  GROUP BY movies.movieId HAVING COUNT(newratinguser.id) > 2 ORDER BY COUNT(movies.movieId) DESC LIMIT 1 WHERE currentdate LIKE '%$current_date%'";
+        //        $query = "SELECT *, COUNT(movies.movieId) FROM movies JOIN newratinguser ON movies.movieId=newratinguser.movieId  GROUP BY movies.movieId HAVING COUNT(newratinguser.id) > 2 ORDER BY COUNT(movies.movieId) DESC LIMIT 1 WHERE currentdate LIKE '%$current_date%'";
         $query = "SELECT *, COUNT(movies.movieId) FROM movies JOIN newratinguser ON movies.movieId=newratinguser.movieId  WHERE currentdate LIKE '%$current_date%' GROUP BY movies.movieId ORDER BY COUNT(movies.movieId) DESC LIMIT 1";
 
         $result = mysqli_query($con, $query);
@@ -381,9 +410,9 @@ FROM accuracy";
         if ($nofrows >0) {
             while ($row = mysqli_fetch_assoc($result)) {
 //                if (stristr($row['currentdate'], $current_date)) {
-                    ?>
-                    <h3><?=$row['COUNT(movies.movieId)'];?> Views of '<?=$row['title'];?>' of id <?=$row['movieId'];?></h3>
-             <?php
+                ?>
+                <h3><?=$row['COUNT(movies.movieId)'];?> Views of '<?=$row['title'];?>' of id <?=$row['movieId'];?></h3>
+                <?php
 //            }
             }
         }
@@ -391,7 +420,7 @@ FROM accuracy";
         ?>
     </div>
 
-<!--    nermine-->
+    <!--    nermine-->
 
 </div>
 

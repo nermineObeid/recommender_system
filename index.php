@@ -128,13 +128,21 @@
     if(isset($_COOKIE['current_user'])) {
         $current_user = $_COOKIE['current_user'];
 
-        $query_acc = "SELECT * FROM `accuracy` WHERE userId = '$current_user'";
+        $query_acc = "SELECT *,COUNT(watching_movies) FROM `watched_movies` WHERE userId = '$current_user'";
         $result_acc = mysqli_query($con, $query_acc);
-        while ($row_acc = mysqli_fetch_assoc($result_acc)) {
-            $accuracy_percentage_double = (double)$row_acc['accuracy'] * 100;
-            $accuracy_percentage_int = (int)$accuracy_percentage_double; ?>
+        $row_acc = mysqli_fetch_assoc($result_acc);
+        $query_hist = "SELECT *,COUNT(movieId) FROM `newratinguser` WHERE userId = '$current_user'";
+        $result_hist = mysqli_query($con, $query_hist);
+        $row_hist = mysqli_fetch_assoc($result_hist);
+        if (mysqli_num_rows($result_acc) > 0 && mysqli_num_rows($result_hist) > 0) {
+            $accuracy_percentage_int = $row_acc['COUNT(watching_movies)'] / $row_hist['COUNT(movieId)'];
+            $accuracy_percentage_int = $accuracy_percentage_int * 100;
+//        return var_dump($accuracy_percentage_int);
+            ?>
+
             <h2><?= round($accuracy_percentage_int); ?>% Match</h2>
-        <?php }
+            <?php
+        }
     }
     ?>
     <!-- Use a button to pause/play the video with JavaScript -->
@@ -242,14 +250,6 @@ while ($row_most = mysqli_fetch_assoc($result_most)) { ?>
 
 if(isset($_COOKIE['current_user'])) {
 $current_user = $_COOKIE['current_user'];
-
-$query_acc = "SELECT * FROM `accuracy` WHERE userId = '$current_user'";
-$result_acc = mysqli_query($con, $query_acc);
-while($row_acc = mysqli_fetch_assoc($result_acc)) {
-    $accuracy_percentage_double = (double)$row_acc['accuracy'] *100;
-    $accuracy_percentage_int = (int)$accuracy_percentage_double; ?>
-<h2><?=round($accuracy_percentage_int);?>% Match</h2>
-<?php }
 
     $query = "SELECT *
 FROM movies
