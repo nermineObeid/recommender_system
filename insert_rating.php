@@ -11,6 +11,7 @@
 
 <?php
 require_once 'connection.php';
+$current_date = date("Y-m-d");
 //    $query = "select * from user_rating WHERE userId=1";
 $recommended = $_POST['recommended'];
 $movieid = $_COOKIE['movie_id_clicked'];
@@ -69,7 +70,10 @@ if($recommended=='true'){
 //        if ($nofrows_check_showed_acc > 0) {
 //            $counter_showed = $row_check_showed_acc['counter'];
 //            $accuracy = $counter_update_watch/$counter_showed;
-       $query_update = "INSERT INTO `watched_movies` (userId,watching_movies) VALUES('$current_user','$movieid')";
+
+//       $query_update = "INSERT INTO `watched_movies` (userId,watching_movies) VALUES('$current_user','$movieid')";
+       $query_update = "INSERT INTO `watched_movies` (userId,watching_movies,currentdate) VALUES('$current_user','$movieid','$current_date')";
+
         if(mysqli_query($con, $query_update)){} else {echo "failure:".mysqli_error($con);}
         //            return var_dump($datamining_result_string_show);
 

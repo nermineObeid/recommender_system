@@ -26,6 +26,7 @@ $recommended = $_POST['recommended'];
 $moviename = $_POST['moviename'];
 //echo var_dump($moviename);
 $ratingNum = $_COOKIE['ratingNum'];
+$current_date = date("Y-m-d");
 
 
     $query = "INSERT INTO `newratinguser`
@@ -40,7 +41,7 @@ $ratingNum = $_COOKIE['ratingNum'];
     }
     if($recommended !='') {
 //        $query_watched = "INSERT INTO `watched_movies` (userId,watching_movies,counter) VALUES ('$current_user','$moviename',1)";
-        $query_watched = "INSERT INTO `watched_movies` (userId,watching_movies) VALUES ('$current_user','$moviename')";
+        $query_watched = "INSERT INTO `watched_movies` (userId,watching_movies,currentdate) VALUES ('$current_user','$moviename','$current_date')";
         if (mysqli_query($con, $query_watched)) {
             echo json_encode(array("statusCode" => 200));
 
