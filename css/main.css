@@ -1486,7 +1486,7 @@ input, button{
   border: 0 !important;
 }
 .tablinks{
-  width: 162px !important;
+  width: 270px !important;
 }
 #algorithm_accuracy, #user_accuracy, #most_viewed, #traffic{
   padding: 20px !important;

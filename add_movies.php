@@ -186,7 +186,7 @@ if (isset($_POST['submit'])) {
 
 
 
-            }
+        }
 
 
 
@@ -286,8 +286,8 @@ if (isset($_POST['submit'])) {
     <!--    nermine-->
     <div class="tab">
         <button class="tablinks active bord-right" onclick="openCity(event, 'add_movie')">Add Movie</button>
-        <button class="tablinks bord-right" onclick="openCity(event, 'user_accuracy')">User Accuracy</button>
-        <button class="tablinks bord-right" onclick="openCity(event, 'algorithm_accuracy')">Algorithm Accuracy</button>
+        <!--        <button class="tablinks bord-right" onclick="openCity(event, 'user_accuracy')">User Accuracy</button>-->
+        <!--        <button class="tablinks bord-right" onclick="openCity(event, 'algorithm_accuracy')">Algorithm Accuracy</button>-->
         <button class="tablinks bord-right" onclick="openCity(event, 'traffic')">Website Traffic</button>
         <button class="tablinks" onclick="openCity(event, 'most_viewed')">Most Viewed Movie Today</button>
     </div>
@@ -337,61 +337,61 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 
-    <div id="user_accuracy" class="tabcontent" style="display: none;">
-        <ul>
+    <!--    <div id="user_accuracy" class="tabcontent" style="display: none;">-->
+    <!--        <ul>-->
+    <!---->
+    <!--                           <p>User id = -->
+    <!--            --><?php
+    //            $query = "SELECT *
+    //FROM users
+    //JOIN accuracy ON users.id=accuracy.userId";
+    //
+    //            $result = mysqli_query($con, $query);
+    //            $nofrows = mysqli_num_rows($result);
+    //            //                $row = mysqli_fetch_assoc($result);
+    //            if ($nofrows >0) {
+    //                while ($row = mysqli_fetch_assoc($result)) {
+    //                    ?>
+    <!--                    <li><div class="row">-->
+    <!--                            <div class="col-sm-6">-->
+    <!--                                <p><b>User id:</b> --><?//=$row['userId'];?><!-- </br> <b>email: </b>--><?//= $row['email'];?><!--</p>-->
+    <!---->
+    <!--                            </div>-->
+    <!--                            <div class="col-sm-6">-->
+    <!--                                --><?php //$user_acc = (double)$row['accuracy'];
+    //                                $user_acc = $user_acc*100;
+    //                                ?>
+    <!--                                <p><b>Accuracy: </b>--><?//= round($user_acc).'%'?><!--</p>-->
+    <!--                            </div> </div>-->
+    <!--                    </li>-->
+    <!--                --><?php //}
+    //            }
+    //            ?>
+    <!--        </ul></div>-->
 
-            <!--                <p>User id = -->
-            <?php
-            $query = "SELECT *
-FROM users
-JOIN accuracy ON users.id=accuracy.userId";
-
-            $result = mysqli_query($con, $query);
-            $nofrows = mysqli_num_rows($result);
-            //                $row = mysqli_fetch_assoc($result);
-            if ($nofrows >0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <li><div class="row">
-                            <div class="col-sm-6">
-                                <p><b>User id:</b> <?=$row['userId'];?> </br> <b>email: </b><?= $row['email'];?></p>
-
-                            </div>
-                            <div class="col-sm-6">
-                                <?php $user_acc = (double)$row['accuracy'];
-                                $user_acc = $user_acc*100;
-                                ?>
-                                <p><b>Accuracy: </b><?= round($user_acc).'%'?></p>
-                            </div> </div>
-                    </li>
-                <?php }
-            }
-            ?>
-        </ul></div>
-
-    <div id="algorithm_accuracy" class="tabcontent" style="display: none;">
-        <?php
-        $query = "SELECT *
-FROM accuracy";
-
-        $result = mysqli_query($con, $query);
-        $nofrows = mysqli_num_rows($result);
-        //                $row = mysqli_fetch_assoc($result);
-        $accuracy_arr = array();
-        $accuracy = 0;
-        if ($nofrows >0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                array_push($accuracy_arr,(double)$row['accuracy']);
-            }
-        }
-        foreach($accuracy_arr as $accuracy_ar){
-            $accuracy+= $accuracy_ar;
-        }
-        $accuracy = ($accuracy/$nofrows)*100;
-
-        ?>
-        <h3>Algorithm Accuracy = <?=round($accuracy).'%'?></h3>
-    </div>
+    <!--    <div id="algorithm_accuracy" class="tabcontent" style="display: none;">-->
+    <!--        --><?php
+    //        $query = "SELECT *
+    //FROM accuracy";
+    //
+    //        $result = mysqli_query($con, $query);
+    //        $nofrows = mysqli_num_rows($result);
+    //        //                $row = mysqli_fetch_assoc($result);
+    //        $accuracy_arr = array();
+    //        $accuracy = 0;
+    //        if ($nofrows >0) {
+    //            while ($row = mysqli_fetch_assoc($result)) {
+    //                array_push($accuracy_arr,(double)$row['accuracy']);
+    //            }
+    //        }
+    //        foreach($accuracy_arr as $accuracy_ar){
+    //            $accuracy+= $accuracy_ar;
+    //        }
+    //        $accuracy = ($accuracy/$nofrows)*100;
+    //
+    //        ?>
+    <!--        <h3>Algorithm Accuracy = --><?//=round($accuracy).'%'?><!--</h3>-->
+    <!--    </div>-->
     <div id="traffic" class="tabcontent" style="display: none;">
         <!--    chart-->
 
