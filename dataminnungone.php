@@ -120,8 +120,8 @@ echo"</pre>";
         }
         
 		$spr[$value] = round($support[$value] / $z * 100,2);
-//                if($total_per_item[$value]>7&&(strpos($comp, $value) == false)){
-                if($total_per_item[$value]>25&&(strpos($comp, $value) == false)){
+                if($total_per_item[$value]>7&&(strpos($comp, $value) == false)){
+//                if($total_per_item[$value]>25&&(strpos($comp, $value) == false)){
                      $comp=$comp.'|'.$value;
                   
                     $belian1[$counter]=$value;
