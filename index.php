@@ -128,6 +128,13 @@
     if(isset($_COOKIE['current_user'])) {
         $current_user = $_COOKIE['current_user'];
 
+        $query = "SELECT *
+FROM movies
+JOIN newratinguser ON movies.movieId=newratinguser.movieId
+WHERE userId=" . $current_user;
+        $result = mysqli_query($con, $query);
+        $count = mysqli_num_rows($result);
+        if($count >9){
         $query_acc = "SELECT *,COUNT(watching_movies) FROM `watched_movies` WHERE userId = '$current_user' AND currentdate > current_date - interval 7 day";
         $result_acc = mysqli_query($con, $query_acc);
         $row_acc = mysqli_fetch_assoc($result_acc);
@@ -145,6 +152,7 @@
             <h2><?= round($accuracy_percentage_int); ?>% Match</h2>
             <?php
         }
+    }
     }
     ?>
     <!-- Use a button to pause/play the video with JavaScript -->
@@ -433,8 +441,11 @@ WHERE userId=" . $current_user . " AND rating >= 3.5 ORDER BY newratinguser.id D
 //        echo var_dump($latest_movies);
         $datamining_result = array();
 
-        $query_datamining_first = "SELECT filmget FROM `dataminning` WHERE film LIKE '%" . $latest_movies[0] . "%' AND type LIKE '%" . $all_interested_genres[0] . "%' AND support >=2";
+//        $query_datamining_first = "SELECT filmget FROM `dataminning` WHERE film LIKE '%" . $latest_movies[0] . "%' AND type LIKE '%" . $all_interested_genres[0] . "%' AND support >=2";
+        $query_datamining_first = "SELECT filmget FROM `dataminnungone` WHERE film LIKE '%" . $latest_movies[0] . "%' AND type LIKE '%" . $all_interested_genres[0] . "%' AND support >=2";
+
         $result_datamining = mysqli_query($con, $query_datamining_first);
+//    return var_dump($latest_movies[0]);
         while ($row_datamining = mysqli_fetch_assoc($result_datamining)) {
             array_push($datamining_result, $row_datamining['filmget']);
 

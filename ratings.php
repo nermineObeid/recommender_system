@@ -194,7 +194,8 @@ WHERE userId=".$current_user." AND rating >= 3.5 ORDER BY timestamp DESC LIMIT 5
         echo var_dump($latest_movies);
         $datamining_result = array();
 
-        $query_datamining_first = "SELECT filmget FROM `dataminning` WHERE film LIKE '%".$latest_movies[0]."%' AND type LIKE '%" . $all_interested_genres[0] . "%' AND support >=2";
+//        $query_datamining_first = "SELECT filmget FROM `dataminning` WHERE film LIKE '%".$latest_movies[0]."%' AND type LIKE '%" . $all_interested_genres[0] . "%' AND support >=2";
+        $query_datamining_first = "SELECT filmget FROM `dataminnungone` WHERE film LIKE '%".$latest_movies[0]."%' AND type LIKE '%" . $all_interested_genres[0] . "%' AND support >=2";
         $result_datamining = mysqli_query($con, $query_datamining_first);
         while($row_datamining = mysqli_fetch_assoc($result_datamining)){
 //                    echo var_dump($row_datamining);
